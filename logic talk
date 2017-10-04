@@ -1,0 +1,58 @@
+[
+{"id":1,"color":"brown","disposition":"closed"},
+{"id":3,"color":"brown","disposition":"closed"}
+]
+
+ids: An array containing the ids of all items returned from the request.
+open: An array containing all of the items returned from the request that have a disposition value of "open". Add a fourth key to each item called isPrimary indicating whether or not the item contains a primary color (red, blue, or yellow).
+closedPrimaryCount: The total number of items returned from the request that have a disposition value of "closed" and contain a primary color.
+previousPage: The page number for the previous page of results, or null if this is the first page.
+nextPage: The page number for the next page of results, or null if this is the last page.
+{ids:[1,3],open:[],closePrimaryCount: 0, previousPage: null , nextPage: null }
+//Implement the nextPage logic
+//Setup temp var for Javascript array from endpoint
+// var payload = [
+{"id":1,"color":"brown","disposition":"closed"},
+{"id":3,"color":"brown","disposition":"closed"}
+]
+
+var nextPage, previousPage
+if (payload.length > 10) {
+  nextPage = options.page + 1
+}
+
+if (options.page > 1) {
+  previousPage = options.page - 1
+}
+
+var primaryColor=['red','blue','yellow'];
+var closedPrimaryCount = 0
+for (i = 0, i < payload.length, i++){
+  if (payload[i].disposition === 'closed' && primaryColor.indexOf(payload[i].color) !== -1){
+    closedPrimaryCount++
+  }
+}
+
+var ids = []
+for (i = 0, i < payload.length, i++){
+  ids.push(payload[i].id)
+}
+
+var open = []
+for (i = 0, i < payload.length, i++){
+  var openItem = payload[i]
+  openItem.isPrimary = (primaryColor.indexOf(payload[i].color) !== -1)
+  open.push(openItem)
+}
+
+while (true) {
+  //something
+  if (somethinghappened) {break; }
+}
+
+payload.forEach((value) => console.log(value.id))
+var newArray = payload.map((value) => value)
+console.log(newArray) -> [1,3]
+
+
+var filteredResultArray = payload.filter(function(value) {return value.id === 3})
